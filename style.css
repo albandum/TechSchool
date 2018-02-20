@@ -736,7 +736,7 @@ p {
 }
 
 .video-area .video-play-btn a:hover {
-    background-color: #a865e1;
+    background-color: #000456;
     color: #fff;
 }
 
@@ -747,12 +747,12 @@ p {
 .cool_facts_area {
     position: relative;
     z-index: auto;
-    background: #a865e1;
-    background: -webkit-linear-gradient(to left, #7873ed, #a865e1);
-    background: -webkit-linear-gradient(right, #7873ed, #a865e1);
-    background: -webkit-gradient(linear, right top, left top, from(#7873ed), to(#a865e1));
-    background: -o-linear-gradient(right, #7873ed, #a865e1);
-    background: linear-gradient(to left, #7873ed, #a865e1);
+    background: #000456;
+    background: -webkit-linear-gradient(to left, #000A8E, #000456);
+    background: -webkit-linear-gradient(right, #000A8E, #000456);
+    background: -webkit-gradient(linear, right top, left top, from(#000A8E), to(#000456));
+    background: -o-linear-gradient(right, #000A8E, #000456);
+    background: linear-gradient(to left, #000A8E, #000456);
     padding: 180px 0 80px 0;
     top: -100px;
 }
@@ -905,7 +905,7 @@ p {
 .single-price-plan.active .package-plan,
 .single-price-plan.active .plan-button > a,
 .single-price-plan:hover .plan-button > a {
-    background-color: #a865e1;
+    background-color: #000456;
 }
 
 .single-price-plan.active .package-plan .ca-price > h4,
@@ -1033,12 +1033,12 @@ p {
 -------------------------- */
 
 .our-monthly-membership {
-    background: #a865e1;
-    background: -webkit-linear-gradient(to left, #7873ed, #a865e1);
-    background: -webkit-linear-gradient(right, #7873ed, #a865e1);
-    background: -webkit-gradient(linear, right top, left top, from(#7873ed), to(#a865e1));
-    background: -o-linear-gradient(right, #7873ed, #a865e1);
-    background: linear-gradient(to left, #7873ed, #a865e1);
+    background: #000456;
+    background: -webkit-linear-gradient(to left, #000A8E, #000456);
+    background: -webkit-linear-gradient(right, #000A8E, #000456);
+    background: -webkit-gradient(linear, right top, left top, from(#000A8E), to(#000456));
+    background: -o-linear-gradient(right, #000A8E, #000456);
+    background: linear-gradient(to left, #000A8E, #000456);
 }
 
 .membership-description > h2 {
