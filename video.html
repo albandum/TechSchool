@@ -1,43 +1,110 @@
-<html><head>
-    <title>WebRTC Simple Calling API + Mobile</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://stephenlb.github.io/webrtc-sdk/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="https://stephenlb.github.io/webrtc-sdk/css/styles.css" rel="stylesheet" type="text/css">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>TechSchool - Cours particuliers de programmation</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="img/core-img/favicon.ico">
+
+    <!-- Core Stylesheet -->
+    <link href="style.css" rel="stylesheet">
+
+    <!-- Responsive CSS -->
+    <link href="css/responsive.css" rel="stylesheet">
+
+    <!-- Jquery-2.2.4 JS -->
+    <script src="js/jquery-2.2.4.min.js"></script>
+
+    <!-- WebRTC -->
+    <script src="https://stephenlb.github.io/webrtc-sdk/js/webrtc-v2.js"></script>
+    <script src="js/video-live.js"></script>
+
+    <style>
+    .video-area {
+        overflow: hidden;
+    }
+    #video-self, #video-self video {
+        left:0;
+        top: 0;
+        width:240px;
+        height:180px;
+        z-index:1;
+    }
+    #video-remote, #video-remote video {
+        left:0;
+        top: 0;
+        width:100%;
+        position: absolute;
+        z-index: -9;
+        top: -30px;
+    }
+    </style>
+
 </head>
+
 <body>
+    <!-- Preloader Start -->
+    <div id="preloader">
+        <div class="colorlib-load"></div>
+    </div>
 
-<!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
-<!-- My Phone Number & Dial Areas -->
-<!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
-<div class="container">
-    <div class="row">
-
-        <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
-        <!-- MY PHONE NUMBER -->
-        <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
-        <div class="col-sm-6">
-            <div id="my-number-section" class="text-center">
-                <div id="my-number"></div>
-            </div>
-            <div id="pubnub-chat-section" class="text-center">
-                <input id="pubnub-chat-input" type="text" placeholder="chat here">
-                <div id="pubnub-chat-output"><div></div></div>
+    <!-- ***** Header Area Start ***** -->
+    <header class="header_area animated">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <!-- Menu Area Start -->
+                <div class="col-12 col-lg-10">
+                    <div class="menu_area">
+                        <nav class="navbar navbar-expand-lg navbar-light">
+                            <!-- Logo -->
+                            <a class="navbar-brand" href="#">TS.</a>
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ca-navbar" aria-controls="ca-navbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                            <!-- Menu Area -->
+                            <div class="collapse navbar-collapse" id="ca-navbar">
+                                <ul class="navbar-nav ml-auto" id="nav">
+                                    <li class="nav-item active"><a class="nav-link" href="/#home">Accueil</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="/#pourquoi">Pourquoi</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="/#programmes">Programmes</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="/#equipe">L'équipe</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="/#pricing">Prix</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="/#contact">Contact</a></li>
+                                </ul>
+                                <div class="sing-up-button d-lg-none">
+                                    <a href="#">Prendre contact</a>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+                <!-- Signup btn -->
+                <div class="col-12 col-lg-2">
+                    <div class="sing-up-button d-none d-lg-block">
+                        <a href="#">Prendre contact</a>
+                    </div>
+                </div>
             </div>
         </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
 
-        <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
-        <!-- Video -->
-        <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
-        <div class="col-sm-6">
-            <!-- DISPLAY -->
+    <!-- ***** Wellcome Area Start ***** -->
+    <section class="wellcome_area clearfix" id="home">
+        <div class="container" style="padding-top: 130px;">
             <div class="row">
-                <div class="col-xs-12 text-center">
-                    <div id="video-border">
-                        <div class="pubnub-relative">
-                            <div id="video-self"></div>
-                        </div>
-                        <div id="video-display"><span class="glyphicon glyphicon-facetime-video"></span></div>
+                <div class="col-12 text-center">
+                    <span style="color:white">Conversation avec votre instructeur</span>
+                    <!-- Video Area Start -->
+                    <div class="video-area" style="background-image: url(img/bg-img/connexion.jpg);">
+                        <div id="video-self"></div>
+                        <div id="video-remote"></div>
                     </div>
                     <div id="pubnub-relative">
                         <div id="video-thumbnail"></div>
@@ -45,266 +112,121 @@
                             <div id="pubnub-logo-img"></div>
                         </div>
                     </div>
-                </div>
-            </div>
-            
-            <!-- DIAL CONTROLS -->
-            <div class="row">
-                <div class="col-sm-6 col-xs-7">
-                    <div class="form-group"><div class="input-group">
-                    <div class="input-group-addon">
-                        <span class="glyphicon glyphicon-th"></span>
                     </div>
-                    <input id="number" class="form-control" type="number" placeholder="Type Recipient's #">
-                    </div></div>
-                </div>
-                <div class="col-sm-6 col-xs-5 dial-buttons">
-                    <button id="dial" class="btn btn-primary">
-                        <span class="glyphicon glyphicon-earphone"></span>
-                    </button>
-                    <button id="snap" class="btn btn-success">
-                        <span class="glyphicon glyphicon-camera"></span>
-                    </button>
-                    <button id="hangup" class="btn btn-danger">
-                        <span class="glyphicon glyphicon-ban-circle"></span>
-                    </button>                    
                 </div>
             </div>
         </div>
-    </div>
-</div>
-
-<!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- -->
-<!-- WebRTC Peer Connections -->
-<!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- -->
-<!-- IMPORTANT: THIS IS AN UNMINIFIED DEVELOPMENT PUBNUB LIBRARY 
-    replace this with the latest versioned, minified CDN lib link before 
-    you deploy your app to a production enviornment.
-    https://github.com/pubnub/javascript#cdn-links
--->
-<script src="https://cdn.pubnub.com/pubnub.js"></script>
-
-<!-- WebRTC SDK -->
-<script src="https://stephenlb.github.io/webrtc-sdk/js/webrtc.js"></script>
-<script src="https://stephenlb.github.io/webrtc-sdk/js/sound.js"></script>
-<script>(function(){
-
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-// Generate Random Number if Needed
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
-const INSTRUCTOR = 1
-const STUDENT = 2
-
-var url_string = window.location.href; //window.location.href
-var url = new URL(url_string);
-var c = url.searchParams.get("instructor");
-
-var my_number       = PUBNUB.$('my-number');
+       
+    </section>
+    <!-- ***** Wellcome Area End ***** -->
 
 
-if (c > 0) {
-    var number       = INSTRUCTOR;
-    var distant_number = STUDENT;
-} else {
-    var number       = STUDENT;
-    var distant_number = INSTRUCTOR;
-}
-my_number.number = number;    
-my_number.innerHTML = my_number.number
+    <!-- ***** Contact Us Area Start ***** -->
+    <section class="footer-contact-area section_padding_100 clearfix" id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- Heading Text  -->
+                    <div class="section-heading">
+                        <h2>Get in touch with us!</h2>
+                        <div class="line-shape"></div>
+                    </div>
+                    <div class="footer-text">
+                        <p>We'll send you epic weekly blogs, whitepapers and things to make your app startup thrive, all FREE!</p>
+                    </div>
+                    <div class="address-text">
+                        <p><span>Address:</span> 40 Baria Sreet 133/2 NewYork City, US</p>
+                    </div>
+                    <div class="phone-text">
+                        <p><span>Phone:</span> +11-225-888-888-66</p>
+                    </div>
+                    <div class="email-text">
+                        <p><span>Email:</span> info.deercreative@gmail.com</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <!-- Form Start-->
+                    <div class="contact_from">
+                        <form action="#" method="post">
+                            <!-- Message Input Area Start -->
+                            <div class="contact_input_area">
+                                <div class="row">
+                                    <!-- Single Input Area Start -->
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="name" id="name" placeholder="Your Name" required>
+                                        </div>
+                                    </div>
+                                    <!-- Single Input Area Start -->
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" name="email" id="email" placeholder="Your E-mail" required>
+                                        </div>
+                                    </div>
+                                    <!-- Single Input Area Start -->
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <textarea name="message" class="form-control" id="message" cols="30" rows="4" placeholder="Your Message *" required></textarea>
+                                        </div>
+                                    </div>
+                                    <!-- Single Input Area Start -->
+                                    <div class="col-12">
+                                        <button type="submit" class="btn submit-btn">Send Now</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Message Input Area End -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ***** Contact Us Area End ***** -->
 
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-// Calling & Answering Service
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-var video_out = PUBNUB.$('video-display');
-var img_out   = PUBNUB.$('video-thumbnail');
-var img_self  = PUBNUB.$('video-self');
+    <!-- ***** Footer Area Start ***** -->
+    <footer class="footer-social-icon text-center section_padding_70 clearfix">
+        <!-- footer logo -->
+        <div class="footer-text">
+            <h2>TechSchool.</h2>
+        </div>
+        <!-- social icon-->
+        <div class="footer-social-icon">
+            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+            <a href="#"><i class="active fa fa-twitter" aria-hidden="true"></i></a>
+            <a href="#"> <i class="fa fa-instagram" aria-hidden="true"></i></a>
+            <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+        </div>
+        <div class="footer-menu">
+            <nav>
+                <ul>
+                    <li><a href="#">A propos</a></li>
+                    <li><a href="#">Termes &amp; Conditions</a></li>
+                    <li><a href="#">Politique de confidentialité</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+        <!-- Foooter Text-->
+        <div class="copyright-text">
+            <!-- ***** Removing this text is now allowed! This template is licensed under CC BY 3.0 ***** -->
+            <p>Copyright ©2017 TechSchool. Design by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+        </div>
+    </footer>
+    <!-- ***** Footer Area Start ***** -->
 
-var phone     = window.phone = PHONE({
-    number        : my_number.number, // listen on this line
-    publish_key   : 'pub-c-561a7378-fa06-4c50-a331-5c0056d0163c',
-    subscribe_key : 'sub-c-17b7db8a-3915-11e4-9868-02ee2ddab7fe',
-    ssl           : false
-});
+    <!-- Popper js -->
+    <script src="js/popper.min.js"></script>
+    <!-- Bootstrap-4 Beta JS -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- All Plugins JS -->
+    <script src="js/plugins.js"></script>
+    <!-- Slick Slider Js-->
+    <script src="js/slick.min.js"></script>
+    <!-- Footer Reveal JS -->
+    <script src="js/footer-reveal.min.js"></script>
+    <!-- Active JS -->
+    <script src="js/active.js"></script>
+</body>
 
-console.log('Listening on')
-console.log(phone.number())
-
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-// Video Session Connected
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-function connected(session) {
-    video_out.innerHTML = '';
-    video_out.appendChild(session.video);
-
-    PUBNUB.$('number').value = ''+session.number;
-    sounds.play('sound/hi');
-    console.log("Hi!");
-}
-
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-// Video Session Ended
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-function ended(session) {
-    clearInterval(thumbnail.ival);
-    thumbnail.ival = 0;
-    set_icon('facetime-video');
-    img_out.innerHTML = '';
-    sounds.play('sound/goodbye');
-    console.log("Bye!");
-}
-
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-// Video Session Ended
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-function set_icon(icon) {
-    video_out.innerHTML = '<span class="glyphicon glyphicon-' +
-        icon + '"></span>';
-}
-
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-// Start Phone Call
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-function dial(number) {
-    // Dial Number
-    var session = phone.dial(number);
-
-    console.log('Calling')
-    console.log(number)
-
-    // No Dupelicate Dialing Allowed
-    if (!session) return;
-
-    // Show Connecting Status
-    set_icon('send');
-}
-
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-// Ready to Send or Receive Calls
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-phone.ready(function(){
-    // Ready To Call
-    set_icon('facetime-video');
-
-    // Auto Call
-    PUBNUB.$('number').value = distant_number;
-    dial(distant_number);
-
-    // Make a Phone Call
-    PUBNUB.bind( 'mousedown,touchstart', PUBNUB.$('dial'), function(){
-        var number = PUBNUB.$('number').value;
-        if (!distant_number) return;
-        dial(distant_number);
-    } );
-
-    // Hanup Call
-    PUBNUB.bind( 'mousedown,touchstart', PUBNUB.$('hangup'), function() {
-        phone.hangup();
-        set_icon('facetime-video');
-    } );
-
-    // Take Picture
-    PUBNUB.bind( 'mousedown,touchstart', PUBNUB.$('snap'), function() {
-        var photo = phone.snap();
-
-        if (!(photo && photo.image))
-            return console.error(
-                '%c Connect your video with a partner first.',
-                'font-size:30px;background:#f00;color:#fff'
-            );
-
-        img_self.innerHTML = ' ';
-        img_self.appendChild(photo.image);
-        setTimeout( function() { img_self.innerHTML = ' ' }, 750 );
-    } );
-});
-
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-// Received Call Thumbnail
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-function thumbnail(session) {
-    img_out.innerHTML = '';
-    img_out.appendChild(session.image);
-    img_out.appendChild(phone.snap().image);
-}
-
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-// Receiver for Calls
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-phone.receive(function(session){
-    session.message(message);
-    session.thumbnail(thumbnail);
-    session.connected(connected);
-    session.ended(ended);
-
-    if (!thumbnail.ival)
-        thumbnail.ival = setInterval( () => thumbnail(session), 100 );
-});
-
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-// Chat
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-var chat_in  = PUBNUB.$('pubnub-chat-input');
-var chat_out = PUBNUB.$('pubnub-chat-output');
-
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-// Send Chat MSG and update UI for Sending Messages
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-PUBNUB.bind( 'keydown', chat_in, function(e) {
-    if ((e.keyCode || e.charCode) !== 13)     return true;
-    if (!chat_in.value.replace( /\s+/g, '' )) return true;
-
-    phone.send({ text : chat_in.value });
-    add_chat( my_number.number + " (Me)", chat_in.value );
-    chat_in.value = '';
-} )
-
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-// Update Local GUI
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-function add_chat( number, text ) {
-    if (!text.replace( /\s+/g, '' )) return true;
-
-    var newchat       = document.createElement('div');
-    newchat.innerHTML = PUBNUB.supplant(
-        '<strong>{number}: </strong> {message}', {
-        message : safetxt(text),
-        number  : safetxt(number)
-    } );
-    chat_out.insertBefore( newchat, chat_out.firstChild );
-}
-
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-// WebRTC Message Callback
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-function message( session, message ) {
-    add_chat( session.number, message.text );
-}
-
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-// XSS Prevent
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-function safetxt(text) {
-    return (''+text).replace( /[<>]/g, '' );
-}
-
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-// Problem Occured During Init
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-phone.unable(function(details){
-    console.log("Alert! - Reload Page.");
-    console.log(details);
-    set_icon('remove');
-});
-
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-// Debug Output
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-phone.debug(function(details){
-     // console.log(details);
-});
-
-})();</script>
-
-
-<audio prelaod="auto" autoplay="true" style="display: none;"><source src="https://stephenlb.github.io/webrtc-sdk/sound/hi.ogg"><source src="https://stephenlb.github.io/webrtc-sdk/sound/hi.mp3"></audio><audio prelaod="auto" autoplay="true" style="display: none;"><source src="https://stephenlb.github.io/webrtc-sdk/sound/goodbye.ogg"><source src="sound/goodbye.mp3"></audio></body></html>
+</html>
