@@ -45,8 +45,10 @@
 
     // Local Camera Display
     phoneOne.camera.ready( video => {
-        phoneOne.$('video-self').appendChild(video);
-        phoneOne.debug( info => console.info(info) );
+        console.log('Camera ready !');
+        let video_self = phoneOne.$('video-self')
+        video_self.appendChild(video);
+        // phoneOne.debug( info => console.info(info) );
     });
 
 
@@ -59,6 +61,9 @@
 
     // CALL HANDLING
     phoneOne.ready(()=>{
+        let video_remote = phoneOne.$('video-out')
+
+
         phoneOneReady = true;
 
         if (userType == "STUDENT") {
@@ -68,11 +73,10 @@
         // When Call Comes In or is to be Connected
         phoneOne.receive( session => {
             console.log('Receiving a call...');
-
             // Display Your Friend's Live Video
             session.connected( session => {
                 console.log('Remote caller: CONNECTED');
-                phoneOne.$('video-out').appendChild(session.video);
+                video_remote.appendChild(session.video);
             });
 
             session.ended( session => console.log('Remote caller: ENDED') );
