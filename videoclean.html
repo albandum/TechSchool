@@ -28,10 +28,20 @@
     <script src="js/video3.js"></script>
 
     <style>
-    #video-self {
+    #video-self, #video-self video {
         left:0;
         top: 0;
-        width:200px;
+        width:240px;
+        height:180px;
+        z-index:1;
+    }
+    #video-remote, #video-remote video {
+        left:0;
+        top: 0;
+        width:100%;
+        height:100%;
+        position: absolute;
+        z-index: -9;
     }
     </style>
 
@@ -89,9 +99,9 @@
                 <div class="col-12 text-center">
                     <span style="color:white">Conversation avec votre instructeur</span>
                     <!-- Video Area Start -->
-                    <div class="video-area" style="background-image: url(img/bg-img/video.png);">
+                    <div class="video-area" style="background-image: url(img/bg-img/connexion.jpg);">
                         <div id="video-self"></div>
-                        <div id="video-out"></div>
+                        <div id="video-remote"></div>
                     </div>
                     <div id="pubnub-relative">
                         <div id="video-thumbnail"></div>
