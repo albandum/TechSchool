@@ -3,31 +3,23 @@
 
     function number() { return (''+Math.random()*100000).split('.')[0] }
 
-    // ~Warning~ You must get your own API Keys for non-demo purposes.
-    // ~Warning~ Get your PubNub API Keys: https://www.pubnub.com/get-started/
-    // The phone *number* can by any string value
-    // const pubkey  = 'pub-c-fbdca561-b5c2-419c-9d57-1a311b4f4e9d';
-    // const subkey  = 'sub-c-5c325260-16f0-11e8-b32f-5ea260837941';
+    const pubkey = 'pub-c-fbdca561-b5c2-419c-9d57-1a311b4f4e9d';
+    const subkey  = 'sub-c-5c325260-16f0-11e8-b32f-5ea260837941';
 
-    const pubkey = 'pub-c-561a7378-fa06-4c50-a331-5c0056d0163c';
-    const subkey  = 'sub-c-17b7db8a-3915-11e4-9868-02ee2ddab7fe';
-
-    const INSTRUCTOR = 7276594876
-    const STUDENT = number()
+    const INSTRUCTOR = "INSTRUCTOR727";
+    const STUDENT = "STUDENT"+number()
 
     var url_string = window.location.href; //window.location.href
     var url = new URL(url_string);
     if (url.searchParams.get("instructor") > 0) {
         var userType = "INSTRUCTOR"
-        var phone1num       = INSTRUCTOR;
-        var phone2num = STUDENT;
+        var phone1num = INSTRUCTOR;
     } else {
         var userType = "STUDENT"
-        var phone1num       = STUDENT;
-        var phone2num = INSTRUCTOR;
+        var phone1num = STUDENT;
     }
 
-    console.log(userType);
+    console.log("====== "+userType+" ======");
 
 
     // Phone One
@@ -40,12 +32,6 @@
     ,   subscribe_key : subkey 
     });
 
-    // Phone Two
-    let   phoneTwoSession = null;
-    let   phoneTwoReady   = false;
-    const numberTwo       = phone2num;
-    let   phoneTwo        = null;
-
     // Local Camera Display
     phoneOne.camera.ready( video => {
         console.log('Camera ready !');
@@ -57,10 +43,8 @@
 
     function phoneCallInstructor() {
         console.log('Calling '+INSTRUCTOR)
-        // if (!(phoneOneReady)) return;
         phoneOneSession = phoneOne.dial(INSTRUCTOR);
-
-        console.log(phoneOneSession);
+        // console.log(phoneOneSession);
     }
 
 
@@ -68,7 +52,7 @@
     phoneOne.ready(()=>{
         let video_remote = phoneOne.$('video-remote')
 
-
+        console.log('Phone '+phoneOne.number()+' ready !');
         phoneOneReady = true;
 
         if (userType == "STUDENT") {
